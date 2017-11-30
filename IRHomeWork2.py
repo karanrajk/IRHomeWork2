@@ -21,7 +21,7 @@ for r in file:
     i =int(r[0]-1)
     j =int(r[1]-1)
     k =r[2]
-    matrixA[i,j] = k
+    matrixA[j, i] = k
 
 print(matrixA)
 sumofcols = matrixA.sum(axis=0)
@@ -42,22 +42,34 @@ for i, (r, sumofcols) in enumerate(zip(matrixA, sumofcols)):
         matrixM[i,:] = r/sumofcols
         
 #tanspose back
-matrixM = matrixM.transpose()
+matrixM = np.round((matrixM.transpose()),5)
 print("Output of Matrix M")
-print(matrixM)
+M = np.asmatrix(matrixM)
+print(M)
 rin =np.ones((highdim,1))
 #print (rin)
 
 rin = rin*(1/highdim)
+
+rin = np.asmatrix(np.round(rin,4))
 #Initial Vector
 print("Original Rank Vector")
 print(rin)
+x = (1-b)*(np.ones((highdim,1)))*(1/highdim)
+x1 = np.asmatrix(x)
+print(x1)
 
-#RandomSurferMethod
+y = M * b
+
+#RandomSurferMethod 
 while condition == False:
-    r = b*np.dot(matrixM,rin) +(1-b)*(np.ones((highdim,1)))*(1/highdim)
+    r = (y * rin) + x
+    #r = b*np.dot(M,rin) + x1
     #print(r)
-    condition = np.allclose(r, rin)
+    #print("Number of iterations: ",itercount)
+    if sum(abs(r - rin)) < 0.0001:
+        condition = True
+#condition = np.allclose(r, rin)
     #print(condition)
 
     #if (r == rin):
@@ -72,6 +84,4 @@ while condition == False:
 print("Converged Rank Vector:")
 print( r)
 
-print("Number of iterations: ",itercount)
-    
-    
+print("Number of iterations: ",itercount)    
