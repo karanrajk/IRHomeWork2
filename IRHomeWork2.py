@@ -26,7 +26,6 @@ for r in file:
 print(matrixA)
 sumofcols = matrixA.sum(axis=0)
 print(sumofcols)
-
 #Transposing the matrix to match the dimensionality
 matrixA = np.transpose(matrixA)
 
@@ -67,7 +66,7 @@ while condition == False:
     #r = b*np.dot(M,rin) + x1
     #print(r)
     #print("Number of iterations: ",itercount)
-    if sum(abs(r - rin)) < 0.0001:
+    if sum(abs(r - rin)) < 0.0005:
         condition = True
 #condition = np.allclose(r, rin)
     #print(condition)
